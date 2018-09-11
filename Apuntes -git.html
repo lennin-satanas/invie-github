@@ -1,0 +1,259 @@
+comandos de git
+
+//para ver la version de git
+--version
+
+//configuraciones basicas
+
+//instalacion en linux ubunto
+sudo apt-get install git
+
+//configuración de la cuenta
+git config --global user.email soporte@allnexus.com.co 
+git config --global user.name Lennin666
+git config --global color.ui true
+
+//comandos utilies en la terminal
+mkdir crear carpetas
+touch file.txt crear un archivo
+rm file.txt borrar un archivo
+rm -rf nombreCarpeta  borrar una carpeta
+
+//Editor vim
+
+vim nombreArchivo abrir el archivo
+
+para salir esc :
+wq
+
+//creando repositorios
+git init primer_repo
+
+//ejercicio
+
+git init invie 
+touch index.html
+
+git status  //permite ver el estado 
+git add index.html  //permite agregar a staging
+
+git rm --cached index.html //bajar un archivo de stagin
+
+git add -A  //agrega todos los archivos que esten listos
+
+git rm -f index.css //Quita del stagin y borra
+
+//enviamos a repositorio los archivos que estaban en stagin
+git commit -m "descripcion detallada de la tarea"
+git commit - m "inicializar nuestro landing"
+
+
+//modificar o concatenar una subida si algo falto de subir
+git commit  --amend -m 'descripcion de la tarea'
+
+primero se agrega los archivos a stagin
+git add 'nombreArchivo'  //archivo que falto subir
+git commit --amend 
+ó
+git commit --amend -m 'remplazo descripcion anterior'
+
+//Etiquetas 
+git tag 0.5   //version ligera
+git tag -a 0.5 -m 'version estable del proyecto'
+git tag -l  //para ver la nota
+
+//para etiquetar un commit anterior se debe saber el sh5 el cual
+//se lo ubica con git log
+
+git tag 0.3 4bae19052d8084430044a379a0822588ca85d36d 
+
+//para borrar un tag
+git tag -d 1.0
+
+//para renombrar un tag
+git tag -f -a 0.1 -m 'iniciando el proyecto' 4bae19052d8084430044a379a0822588ca85d36d
+
+
+//git log comandos
+
+git log --oneline //resumen dl log
+git log -- oneline --graph
+git log -2 //muestra los ultimos commit
+
+//configurando un super log
+git config --global alias.superlog "log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
+git superlog
+
+Ver los commit de la ultima semana
+git log --all --pretty=format:'%h %cd %s (%an)' --since='7 days ago'
+
+//git reset --soft
+//no elimina los archivos los deja en stagin, 
+//los deja preparados para un commit 
+git reset --soft #SH-1## 
+git reset -soft 4bae190 //elimina los commit de aqui para arriba
+
+git commit -m 'descripcion'
+
+//git reset mixed los quita y los coloca en el working directory
+
+git reset --mixed #######
+
+/*git reset --hard
+
+Elimina de la carpeta tener cuidado con reset hard
+un git reset hard puede ser removido pero antes hacer un log
+para tener los sha1, guardar en un archivo el log del proyecto
+para poderse devolver
+quita el commit 
+quita el stagin 
+y quita el working directory
+
+*/
+
+git reset --hard ######
+
+//Configurar la consola de otro editor de texto
+
+https://help.github.com/articles/associating-text-editors-with-git/
+
+git config --global core.editor "'c:/program files/sublime text 3/subl.exe' -w"
+
+////////// RAMAS git branch
+
+//para crear una rama
+git branch nombreDeLaRama
+
+para listar las RAMAS
+git branch -l
+
+//para elimininar una rama
+git branch -d nombreDeLaRama
+gir branch -D nombreDeLaRama //para forzar
+
+//para renombrar una rama
+git branch -m responsive RD 
+
+//para moverse entre ramas
+
+git checkout nombre de la rama
+
+//moverse en el tiempo, para cazar un bug
+git checkout ######
+
+/// crear una nueva rama y quedar posesionado ahi
+git checkout -b nueva-imagen
+
+/// moverse en el timpo
+git log --oneline
+git checkout #####
+
+//forma grafica de ver mezcla de ramas
+git log --oneline --graph 
+
+//ver cambios
+git diff 30e744c
+
+// me muevo a la rama master para cambiar y despues
+ git merge nombreDeLaRama
+
+
+
+//git stash
+git stash: es otro de los limbos, como el staging area. Para agregar los cambios estos deben estar en el staging area.
+git stash list: nos muestra la lista de stash que tengamos.
+git stash drop stash@{numero}: nos permite borrar un stash.
+git stash apply: aplicamos el último cambio
+
+git stash : Guarda el trabajo actual de manera temporal. (Archivos modificados o eliminados)
+git stash -u : Crea un stash con todos los archivos. (Añadiendo los creados Untracked)
+git stash list : Permite visualizar todos los stash existentes.
+git stash clear : Elimina todos los stash existentes.
+git stash show stash@{num_stash} : Muestra los archivos cambiados en ese stash.
+git stash show -p stash@{num_stash} : Muestra los archivos cambiados en ese stash en detalle.
+git stash drop stash@{num_stash} : Elimina un stash específico.
+git stash apply : Aplica el stash más reciente. El que tiene num_stash=0.
+git stash apply stash@{num_stash} : Aplica los cambios de un stash específico.
+
+
+////////// sirve para moverse entre ramas sin tener que hacer un commit
+git stash: es otro de los limbos, como el staging area. Para agregar los cambios estos deben estar en el staging area.
+git stash list: nos muestra la lista de stash que tengamos.
+git stash drop stash@{numero}: nos permite borrar un stash.
+git stash apply: aplicamos el último cambio
+
+///
+cherry-pick
+
+/// GITHUB
+
+git clone https://github.com/lennin-satanas/invie-github.git
+
+git fork -- copiando un repo de otra cuenta
+
+// para comunicarme entre local y github necesito de una llave ssh para que no este preguntando usu y pw cada vez
+
+$ ssh-keygen -t rsa -b 4096 -C "soporte@allnexus.com.co"
+Generating public/private rsa key pair.
+Enter file in which to save the key (/c/Users/Usuario/.ssh/id_rsa):
+Created directory '/c/Users/Usuario/.ssh'.
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /c/Users/Usuario/.ssh/id_rsa.
+Your public key has been saved in /c/Users/Usuario/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:WqM45LsDvOCDjNESakYS9xlLKJqqnpaSzZOaELmsYqU soporte@allnexus.com.co
+The key's randomart image is:
++---[RSA 4096]----+
+|   .             |
+|o o o            |
+|.= o +           |
+|=o  +            |
+|B+  .   S        |
+|B=++ . + .       |
+|@O+++ o          |
+|XEB .o           |
+|X+..oo           |
++----[SHA256]-----+
+
+//despues para copiar en windows y pegar en github
+clip < ~/.ssh/id_rsa.pub
+
+despues pegarlos en setting -->SSH keys
+
+/*
+git remote add [origin] [SSH/HTTPS] Conecta un repositorio con nuestro equipo local.
+git remote -v Lista las conexiones existentes.
+git remote remove [origin] Elimina una conexión con algún repositorio.*/
+
+//para enlazar lo local con github
+AllNexus@DESKTOP-B7D2C66 MINGW64 /d/GIT/landing (master)
+$ git remote add origin git@github.com:lennin-satanas/invie-github.git
+
+AllNexus@DESKTOP-B7D2C66 MINGW64 /d/GIT/landing (master)
+$ git remote -v
+origin  git@github.com:lennin-satanas/invie-github.git (fetch)
+origin  git@github.com:lennin-satanas/invie-github.git (push)
+
+
+// git push (Enviando cambios al repositorio remoto)
+
+//para bajar cambios Primera Opcion
+git fetch origin master
+//esto bajo los archivo y creo una nueva rama origin/master
+//ahora debemos juntar las ramas
+git merge origin/master
+// si sale un error fatal... agregamos lo siguiente
+git merge origin/master --allow-unrelated-histories
+
+//segunda forma de bajar cambios y combina de una vez
+
+git pull origin master
+
+//ignorando archivos
+git .gitignore
+
+
+//subir cambios 
+git push origin master
+
